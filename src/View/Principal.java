@@ -34,13 +34,13 @@ public class Principal extends JPanel {
         label.setFont(new Font("Arial", Font.ITALIC, 20));
         label.addMouseListener(new MouseAdapter() {
 
-            @SuppressWarnings("unlikely-arg-type")
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.equals(play)) {
-                    System.out.println("aaa");
+                if (e.getSource().equals(play)) {
+                    App.CerraFrame();
                     App.CrearFrame(new Juego());
-                } else if (e.equals(instrucciones)) {
+                } else if (e.getSource().equals(instrucciones)) {
+                    App.CerraFrame();
                     App.CrearFrame(new Instrucciones());
                 }
             }
