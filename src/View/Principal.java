@@ -41,7 +41,7 @@ public class Principal extends JPanel {
                     App.CrearFrame(new Juego());
                 } else if (e.getSource().equals(instrucciones)) {
                     App.CerraFrame();
-                    App.CrearFrame(new Instrucciones());
+                    App.CrearFrame(new Instrucciones("Main menu"));
                 }
             }
 
