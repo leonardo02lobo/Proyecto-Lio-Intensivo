@@ -38,6 +38,7 @@ public class Principal extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getSource().equals(play)) {
                     App.CerraFrame();
+                    App.WITDH+=400;
                     App.CrearFrame(new Juego());
                 } else if (e.getSource().equals(instrucciones)) {
                     App.CerraFrame();
