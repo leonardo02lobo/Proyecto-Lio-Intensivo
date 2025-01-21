@@ -14,13 +14,15 @@ public class Juego extends JPanel{
         ((bobEsponja)datosPersonaje).mover(LBobEsponja);
         add(LBobEsponja);
 
-         add(new EntornoMesa());
+        EntornoMesa EntornoMesa = new EntornoMesa();
+        EntornoMesa.setBounds(200, 0, 100, 100);
+         add(EntornoMesa);
         
         
         Image img = new ImageIcon(getClass().getResource("../Resource/fondoJuego.png")).getImage();
         escenario.setIcon(new ImageIcon(img.getScaledInstance(App.WITDH, App.HEIGHT, Image.SCALE_SMOOTH)));
         escenario.setBounds(0, 0, App.WITDH, App.HEIGHT);
-        //add(escenario);
+        add(escenario);
     }
     
     private JLabel LBobEsponja = new JLabel();
