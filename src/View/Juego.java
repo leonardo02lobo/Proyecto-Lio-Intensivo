@@ -2,7 +2,6 @@ package View;
 
 import Models.*;
 import Models.Entidades.EntornoMesa;
-import Models.Entidades.Mesa;
 
 import java.awt.*;
 import javax.swing.*;

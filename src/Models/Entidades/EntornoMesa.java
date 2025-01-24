@@ -10,6 +10,4 @@ public class EntornoMesa extends JLabel{
         Image img = new ImageIcon(getClass().getResource("../../Resource/mesa.png")).getImage();
         setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
     }
-
-    private Mesa mesa = new Mesa();
 }
