@@ -57,6 +57,8 @@ public abstract class personaje {
 
     public void setSprites(String[] sprites) {
         this.sprites = sprites;
+    } 
+    public void detenertimer(){
+        timecharacter.stop();
     }
-
 }
