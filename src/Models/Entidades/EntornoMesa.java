@@ -13,8 +13,6 @@ public class EntornoMesa extends JLabel {
         Image img = new ImageIcon(getClass().getResource("../../Resource/mesa.png")).getImage();
         setIcon(new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
     }
-<<<<<<< HEAD
-=======
 
     public int[] getCoordenadasX() {
         return CoordenadasX;
@@ -23,5 +21,4 @@ public class EntornoMesa extends JLabel {
     public int[] getCoordenadasY() {
         return CoordenadasY;
     }
->>>>>>> ab7797262ab325376057655d951c04576cbe7583
 }

@@ -15,6 +15,10 @@ public class bobEsponja extends personaje {
     }
 
     public void mover(JLabel label, MouseEvent ex) {
+        if(timecharacter != null){
+            timecharacter.stop();
+            timecharacter = null;
+        }
         timecharacter = new Timer(100, new ActionListener() {
             int x = getX();
             int y = getY();
