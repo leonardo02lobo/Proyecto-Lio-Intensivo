@@ -24,26 +24,39 @@ public class bobEsponja extends personaje {
                 if (iterador1 == getSprites().length) {
                     iterador1 = 0;
                 }
-                if(iteradorMesas == mesas.length - 1){
+                if (iteradorMesas == mesas.length - 1) {
                     iteradorMesas = 0;
-                }else{
+                } else {
                     iteradorMesas++;
                 }
 
-                if(label.getBounds().intersects(mesas[iteradorMesas].getBounds())){
+                if (label.getBounds().intersects(mesas[iteradorMesas].getBounds())) {
                     x -= 20;
                     y += 20;
                     label.setBounds(x, y, getWidth(), getHeight());
                     detenertimer();
                 }
                 if (x < ex.getX()) {
+                    if(x == 1080){
+                        detenertimer();
+                    }
                     x += 10;
                 } else {
+                    if(x == 0){
+                        detenertimer();
+                    }
                     x -= 10;
                 }
+                System.out.println(x);
                 if (y < ex.getY()) {
+                    if(y == 650){
+                        detenertimer();
+                    }
                     y += 10;
                 } else {
+                    if (y == 400) {
+                        detenertimer();
+                    }
                     y -= 10;
                 }
 
