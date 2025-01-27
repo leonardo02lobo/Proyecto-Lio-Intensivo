@@ -13,8 +13,8 @@ public class Juego extends JPanel {
         setLayout(null);
 
         CrearPersonaje();
-        CrearMesas();
-        CrearEscenario();
+        //CrearMesas();
+        //CrearEscenario();
     }
 
     private void CrearPersonaje() {
@@ -22,6 +22,42 @@ public class Juego extends JPanel {
         Image img = new ImageIcon(getClass().getResource(bob.getSprites()[1])).getImage();
         LBobEsponja.setIcon(new ImageIcon(img.getScaledInstance(bob.getWidth(), bob.getHeight(), Image.SCALE_SMOOTH)));
         LBobEsponja.setBounds(bob.getX(), bob.getY(), bob.getWidth(), bob.getHeight());
+        LBobEsponja.addKeyListener(new KeyAdapter() {
+            int x = bob.getX();
+            int y = bob.getY();
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    if (x != 1080) {
+                        x += 10;
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    if (x != 0) {
+                        x -= 10;
+                        bob.mover(null, KeyEvent.VK_A);
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_W) {
+                    if (y != 0) {
+                        y -= 10;
+                        bob.mover(null, KeyEvent.VK_W);
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    if (y != 660) {
+                        y += 10;
+                        bob.mover(null, KeyEvent.VK_S);
+                    }
+
+                }
+                System.out.println(x + " " + y);
+                LBobEsponja.setLocation(x, y);
+            }
+        });
+        bob.mover(null, 0);
+        LBobEsponja.setFocusable(true);
         add(LBobEsponja);
     }
 
@@ -38,14 +74,6 @@ public class Juego extends JPanel {
         Image img = new ImageIcon(getClass().getResource("../Resource/fondoJuego.png")).getImage();
         escenario.setIcon(new ImageIcon(img.getScaledInstance(App.WITDH, App.HEIGHT, Image.SCALE_SMOOTH)));
         escenario.setBounds(0, 0, App.WITDH, App.HEIGHT);
-        escenario.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                bob.mover(LBobEsponja, e, EntornoMesa);
-            }
-
-        });
-        escenario.setFocusable(true);
         add(escenario);
     }
 
@@ -53,8 +81,9 @@ public class Juego extends JPanel {
     private JLabel LBobEsponja = new JLabel();
     private JLabel escenario = new JLabel();
     private personaje datosPersonaje = new bobEsponja(400, 450, 100, 100,
-            new String[] { "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png" });
+            new String[]{"../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png"});
     private bobEsponja bob;
+    int iterador1 = 0;
 }
