@@ -1,7 +1,7 @@
 package View;
 
 import Models.*;
-import Models.Entidades.EntornoMesa;
+import Models.Entidades.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,8 +13,8 @@ public class Juego extends JPanel {
         setLayout(null);
 
         CrearPersonaje();
-        //CrearMesas();
-        //CrearEscenario();
+        CrearMesas();
+        CrearEscenario();
     }
 
     private void CrearPersonaje() {
@@ -31,32 +31,37 @@ public class Juego extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                     if (x != 1080) {
                         x += 10;
+                        bob.mover(null, KeyEvent.VK_D,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_A) {
                     if (x != 0) {
                         x -= 10;
-                        bob.mover(null, KeyEvent.VK_A);
+                        bob.mover(null, KeyEvent.VK_A,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W) {
-                    if (y != 0) {
+                    if (y != 400) {
                         y -= 10;
-                        bob.mover(null, KeyEvent.VK_W);
+                        bob.mover(null, KeyEvent.VK_W,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     if (y != 660) {
                         y += 10;
-                        bob.mover(null, KeyEvent.VK_S);
+                        bob.mover(null, KeyEvent.VK_S,LBobEsponja);
                     }
 
                 }
-                System.out.println(x + " " + y);
                 LBobEsponja.setLocation(x, y);
             }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                bob.mover(null, 0, LBobEsponja);
+            }
+            
         });
-        bob.mover(null, 0);
         LBobEsponja.setFocusable(true);
         add(LBobEsponja);
     }
