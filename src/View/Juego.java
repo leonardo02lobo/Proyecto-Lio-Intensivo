@@ -30,25 +30,41 @@ public class Juego extends JPanel {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                     if (x != 1080) {
-                        x += 10;
+                        if(VerificarColisionMesas()){
+                           x += 10; 
+                        }else{
+                            x-=20;
+                        }
                         bob.mover(null, KeyEvent.VK_D,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_A) {
                     if (x != 0) {
-                        x -= 10;
+                        if(VerificarColisionMesas()){
+                           x -= 10; 
+                        }else{
+                            x+=20;
+                        }
                         bob.mover(null, KeyEvent.VK_A,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W) {
-                    if (y != 400) {
-                        y -= 10;
+                    if (y != 350) {
+                        if(VerificarColisionMesas()){
+                           y-= 10; 
+                        }else{
+                            y+=20;
+                        }
                         bob.mover(null, KeyEvent.VK_W,LBobEsponja);
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     if (y != 660) {
-                        y += 10;
+                        if(VerificarColisionMesas()){
+                           y += 10; 
+                        }else{
+                            y-=20;
+                        }
                         bob.mover(null, KeyEvent.VK_S,LBobEsponja);
                     }
 
@@ -80,6 +96,13 @@ public class Juego extends JPanel {
         escenario.setIcon(new ImageIcon(img.getScaledInstance(App.WITDH, App.HEIGHT, Image.SCALE_SMOOTH)));
         escenario.setBounds(0, 0, App.WITDH, App.HEIGHT);
         add(escenario);
+    }
+    
+    private boolean VerificarColisionMesas(){
+        return (!LBobEsponja.getBounds().intersects(EntornoMesa[0].getBounds()) &&
+                !LBobEsponja.getBounds().intersects(EntornoMesa[1].getBounds()) &&
+                !LBobEsponja.getBounds().intersects(EntornoMesa[2].getBounds()) &&
+                !LBobEsponja.getBounds().intersects(EntornoMesa[3].getBounds()));
     }
 
     private EntornoMesa[] EntornoMesa = new EntornoMesa[4];

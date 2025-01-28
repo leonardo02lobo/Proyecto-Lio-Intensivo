@@ -21,14 +21,14 @@ public class Patricio extends personaje{
             iterador1 = 0;
         }
         if (letraCodigo == KeyEvent.VK_D) {
-            setSprites(new String[] { "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha1.png",
-                    "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha2.png",
-                    "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha3.png" });
-        }
-        if (letraCodigo == KeyEvent.VK_A) {
             setSprites(new String[] { "../Resource/Personajes/Patricio/patricio-estrella-movimiento-izquierda1.png",
                     "../Resource/Personajes/Patricio/patricio-estrella-movimiento-izquierda2.png",
                     "../Resource/Personajes/Patricio/patricio-estrella-movimiento-izquierda3.png" });
+        }
+        if (letraCodigo == KeyEvent.VK_A) {
+            setSprites(new String[] { "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha1.png",
+                    "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha2.png",
+                    "../Resource/Personajes/Patricio/patricio-estrella-movimiento-derecha3.png" });
         }
         if (letraCodigo == KeyEvent.VK_W) {
             setSprites(new String[] { "../Resource/Personajes/Patricio/patricio-estrella-espalda1.png",

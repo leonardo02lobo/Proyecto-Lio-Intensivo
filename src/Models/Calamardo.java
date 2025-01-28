@@ -22,14 +22,14 @@ public class Calamardo extends personaje{
             iterador1 = 0;
         }
         if (letraCodigo == KeyEvent.VK_D) {
-            setSprites(new String[] { "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha1.png",
-                    "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha2.png",
-                    "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha3.png" });
-        }
-        if (letraCodigo == KeyEvent.VK_A) {
             setSprites(new String[] { "../Resource/Personajes/Calamardo/calamardo-movimiento-izquierda1.png",
                     "../Resource/Personajes/Calamardo/calamardo-movimiento-izquierda2.png",
                     "../Resource/Personajes/Calamardo/calamardo-movimiento-izquierda3.png" });
+        }
+        if (letraCodigo == KeyEvent.VK_A) {
+            setSprites(new String[] { "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha1.png",
+                    "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha2.png",
+                    "../Resource/Personajes/Calamardo/calamardo-movimiento-derecha3.png" });
         }
         if (letraCodigo == KeyEvent.VK_W) {
             setSprites(new String[] { "../Resource/Personajes/Calamardo/calamardo-espalda1.png",
