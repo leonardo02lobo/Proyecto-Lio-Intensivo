@@ -11,10 +11,31 @@ public class Juego extends JPanel {
 
     public Juego() {
         setLayout(null);
+        Fondoescenario.setLayout(null);
+        Fondoescenario.setBounds(0,0,App.WITDH,App.HEIGHT);
+        add(Fondoescenario);
 
+        CrearEscenario();
         CrearPersonaje();
         CrearMesas();
-        CrearEscenario();
+        
+        Timer tiempoCliente = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(segundos == 5){
+                    CrearCliente();
+                }
+                if(segundos == 10){
+                    System.out.println("aaa");
+                  clientePersonaje.MoverCliente(cliente, 130, 400); 
+                }
+                System.out.println(segundos);
+                segundos++;
+                revalidate();
+                repaint();
+            }
+        });
+        tiempoCliente.start();
     }
 
     private void CrearPersonaje() {
@@ -49,7 +70,7 @@ public class Juego extends JPanel {
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W) {
-                    if (y != 350) {
+                    if (y != 300) {
                         if(VerificarColisionMesas()){
                            y-= 10; 
                         }else{
@@ -79,7 +100,7 @@ public class Juego extends JPanel {
             
         });
         LBobEsponja.setFocusable(true);
-        add(LBobEsponja);
+        Fondoescenario.add(LBobEsponja);
     }
 
     private void CrearMesas() {
@@ -87,7 +108,7 @@ public class Juego extends JPanel {
             EntornoMesa[i] = new EntornoMesa();
             EntornoMesa[i].setBounds(EntornoMesa[i].getCoordenadasX()[i], EntornoMesa[i].getCoordenadasY()[i], 100,
                     100);
-            add(EntornoMesa[i]);
+            Fondoescenario.add(EntornoMesa[i]);
         }
     }
 
@@ -105,6 +126,11 @@ public class Juego extends JPanel {
                 !LBobEsponja.getBounds().intersects(EntornoMesa[3].getBounds()));
     }
 
+    private void CrearCliente(){
+        cliente = clientePersonaje.CrearCliente();
+        Fondoescenario.add(cliente);
+    }
+
     private EntornoMesa[] EntornoMesa = new EntornoMesa[4];
     private JLabel LBobEsponja = new JLabel();
     private JLabel escenario = new JLabel();
@@ -113,5 +139,12 @@ public class Juego extends JPanel {
                 "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
                 "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png"});
     private bobEsponja bob;
-    int iterador1 = 0;
+    private int segundos = 0;
+    Cliente clientePersonaje = new Cliente(500, 300, 100, 100, new String[]{
+        "../Resource/Personajes/Calamardo/calamardo-movimiento1.png",
+        "../Resource/Personajes/Calamardo/calamardo-movimiento2.png",
+        "../Resource/Personajes/Calamardo/calamardo-movimiento3.png",
+    });
+    JLabel cliente;
+    JLabel Fondoescenario = new JLabel();
 }
