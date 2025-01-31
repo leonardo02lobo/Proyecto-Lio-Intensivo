@@ -5,96 +5,125 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Cliente extends personaje {
-    
+
     private JLabel cliente = new JLabel();
     private Image img;
-    private Timer segundosComida;
-    
+    public boolean ordenLista = false;
+    public boolean terminarComida = false;
+    private Timer segundosComida, comiendo;
+
     public Cliente(int x, int y, int width, int height) {
-        super(x, y, width, height,null);
+        super(x, y, width, height, null);
         setSprites(new String[]{
             "../Resource/Personajes/Calamardo/calamardo-movimiento1.png",
             "../Resource/Personajes/Calamardo/calamardo-movimiento2.png",
             "../Resource/Personajes/Calamardo/calamardo-movimiento3.png",});
     }
 
-    public JLabel CrearCliente() { 
+    public void CrearCliente(JLabel panel) {
         img = new ImageIcon(getClass().getResource(getSprites()[1])).getImage();
         cliente.setIcon(new ImageIcon(img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
         cliente.setBounds(getX(), getY(), getWidth(), getHeight());
-        return cliente;
+        panel.add(cliente);
     }
 
-    public void MoverCliente(JLabel label, int posicionX, int posicionY) {
+    public void MoverCliente(int posicionX, int posicionY) {
 
         timecharacter = new Timer(100, new ActionListener() {
-            int x = label.getX();
-            int y = label.getY();
+            int x = cliente.getX();
+            int y = cliente.getY();
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (x == posicionX && y == posicionY) {
-                    label.setSize(label.getWidth(), label.getHeight()+30);
-                    pedirComida(label);
+                    cliente.setSize(cliente.getWidth(), cliente.getHeight() + 30);
+                    pedirComida();
                     timecharacter.stop();
                     return;
                 }
-                if (label.getBounds().x >= posicionX) {
+                if (cliente.getBounds().x >= posicionX) {
                     x -= 10;
                 } else {
                     x += 10;
                 }
-                if (label.getBounds().y < posicionY) {
+                if (cliente.getBounds().y < posicionY) {
                     y += 10;
                 }
-                label.setLocation(x, y);
+                cliente.setLocation(x, y);
             }
         });
         timecharacter.start();
     }
 
-    public void MoverClienteEliminar(JLabel label, JLabel Fondoescenario, int posicionX, int posicionY) {
+    public void MoverClienteEliminar(JLabel Fondoescenario, int posicionX, int posicionY) {
+        img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-movimiento2.png")).getImage();
+        cliente.setIcon(new ImageIcon(img.getScaledInstance(cliente.getWidth(), cliente.getHeight(), Image.SCALE_SMOOTH)));
         timecharacter = new Timer(100, new ActionListener() {
-            int x = label.getX();
-            int y = label.getY();
+            int x = cliente.getX();
+            int y = cliente.getY();
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (x == posicionX && y == posicionY) {
                     timecharacter.stop();
-                    Fondoescenario.remove(label);
+                    Fondoescenario.remove(cliente);
                     return;
                 }
-                if (label.getBounds().x >= posicionX) {
+                if (cliente.getBounds().x >= posicionX) {
                     x -= 10;
                 } else {
                     x += 10;
                 }
-                if (label.getBounds().y > posicionY) {
-                    y -= 10;
+                if (y != posicionY) {
+                    if (cliente.getBounds().y > posicionY) {
+                        y -= 10;
+                    }
                 }
-                label.setLocation(x, y);
+                cliente.setLocation(x, y);
             }
         });
         timecharacter.start();
     }
-    
-    public void pedirComida(JLabel label){
+
+    public void pedirComida() {
         img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-pensando.png")).getImage();
-        label.setIcon(new ImageIcon(img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+        cliente.setIcon(new ImageIcon(img.getScaledInstance(cliente.getWidth(), cliente.getHeight(), Image.SCALE_SMOOTH)));
         segundosComida = new Timer(1000, new ActionListener() {
             int segundos = 0;
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("aaa");
                 segundos++;
-                if(segundos == 5){
+                if (segundos == 5) {
+                    ordenLista = true;
                     img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-orden.png")).getImage();
-                    label.setIcon(new ImageIcon(img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+                    cliente.setIcon(new ImageIcon(img.getScaledInstance(cliente.getWidth(), cliente.getHeight(), Image.SCALE_SMOOTH)));
                     segundosComida.stop();
                 }
             }
         });
         segundosComida.start();
+    }
+
+    public void Comer(JLabel comida) {
+        if (cliente.getBounds().intersects(comida.getBounds())) {
+            Comiendo();
+        }
+    }
+
+    private void Comiendo() {
+        comiendo = new Timer(1000, new ActionListener() {
+            int segundos = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                segundos++;
+                if (segundos == 5) {
+                    terminarComida = true;
+                    comiendo.stop();
+                }
+            }
+        });
+        comiendo.start();
     }
 }

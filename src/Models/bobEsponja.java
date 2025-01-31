@@ -20,29 +20,6 @@ public class bobEsponja extends personaje {
             timecharacter.stop();
             timecharacter = null;
         }
-        if(iterador1 == getSprites().length){
-            iterador1 = 0;
-        }
-        if (letraCodigo == KeyEvent.VK_D) {
-            setSprites(new String[] { "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-derecha1.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-derecha2.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-derecha3.png" });
-        }
-        if (letraCodigo == KeyEvent.VK_A) {
-            setSprites(new String[] { "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-izquierda1.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-izquierda2.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento-izquierda3.png" });
-        }
-        if (letraCodigo == KeyEvent.VK_W) {
-            setSprites(new String[] { "../Resource/Personajes/Bob-Esponja/bob-esponja-espalda1.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-espalda2.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-espalda3.png" });
-        }
-        if (letraCodigo == KeyEvent.VK_S) {
-            setSprites(new String[] { "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
-                    "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png" });
-        }
         timecharacter = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,7 +33,7 @@ public class bobEsponja extends personaje {
         });
         timecharacter.start();
         if(letraCodigo == 0){
-            imagenNueva = new ImageIcon(getClass().getResource("../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png")).getImage();
+            imagenNueva = new ImageIcon(getClass().getResource("../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png")).getImage();
             label.setIcon(new ImageIcon(imagenNueva.getScaledInstance(label.getBounds().width, label.getBounds().height, Image.SCALE_SMOOTH)));
             detenertimer();
         }
