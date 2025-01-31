@@ -11,6 +11,9 @@ public abstract class personaje {
     protected Timer timecharacter;
     protected int iterador1 = 0;
 
+    public personaje(){
+        
+    }
     public personaje(int x, int y, int width, int height, String[] sprites) {
         this.x = x;
         this.y = y;
