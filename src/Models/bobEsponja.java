@@ -7,9 +7,12 @@ import javax.swing.*;
 public class bobEsponja extends personaje {
     private Image imagenNueva;
     public int i = 0;
-
-    public bobEsponja(int x, int y, int width, int height, String[] sprites) {
-        super(x, y, width, height, sprites);
+    
+    public bobEsponja(int x, int y, int width, int height) {
+        super(x, y, width, height, null);
+        setSprites(new String[]{"../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png"});
     }
 
     public void mover(String[] sprites, int letraCodigo,JLabel label) {
