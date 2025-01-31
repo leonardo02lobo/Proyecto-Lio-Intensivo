@@ -10,11 +10,10 @@ import javax.swing.*;
 public class Juego extends JPanel {
 
     public Juego() {
-        setLayout(null);
-
+        setLayout(null);     
         CrearPersonaje();
-        //CrearMesas();
-        //CrearEscenario();
+        CrearMesas();
+        CrearEscenario();
     }
 
     private void CrearPersonaje() {
