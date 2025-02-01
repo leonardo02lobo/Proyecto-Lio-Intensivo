@@ -20,6 +20,8 @@ public class Juego extends JPanel {
         CrearMesas();
         Fondoescenario.add(barra);
         Ordenes();
+        Fondoescenario.add(cantidadDinero);
+        
         Timer tiempoCliente = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,8 +45,10 @@ public class Juego extends JPanel {
                     Fondoescenario.remove(orden);
                     clientePersonaje.ordenLista = false;
                 }
-                if (clientePersonaje.terminarComida) {
+                if (clientePersonaje.terminarComida && !cantidadDinero.OrdenTerminada) {
                     Fondoescenario.remove(orden);
+                    cantidadDinero.setDinero(20);
+                    cantidadDinero.OrdenTerminada = true;
                     clientePersonaje.MoverClienteEliminar(Fondoescenario, 100, 300);
                 }
                 System.out.println(segundos);
@@ -159,4 +163,5 @@ public class Juego extends JPanel {
     private JLabel Fondoescenario = new JLabel();
     private Orden orden = new Orden("../Resource/cangreburger.png");
     private BarraComida barra = new BarraComida();
+    private CantidadDinero cantidadDinero = new CantidadDinero();
 }
