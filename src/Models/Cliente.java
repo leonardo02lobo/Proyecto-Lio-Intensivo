@@ -126,4 +126,8 @@ public class Cliente extends personaje {
         });
         comiendo.start();
     }
+    
+    public Rectangle getBounds(){
+        return cliente.getBounds();
+    }
 }
