@@ -11,20 +11,75 @@ public class Cliente extends personaje {
     public boolean ordenLista = false;
     public boolean terminarComida = false;
     private Timer segundosComida, comiendo;
+    private int segundos = 0;
+    private JLabel panelJuego;
+    private Orden orden = new Orden();
+    private JLabel personaje;
+    private BarraComida barra;
+    private CantidadDinero cantidadDinero;
+    private int numeroComida = 0;
+    private boolean[] mesasOcupadas = {false,false,false,false,false,false};
+    private int[] posicionMesasX ={250,500,700,950};
+    private int[] posicionMesasY ={300,300,300,300};
 
-    public Cliente(int x, int y, int width, int height) {
+    public Cliente(int x, int y, int width, int height, JLabel panelJuego, JLabel personaje, BarraComida barra, CantidadDinero cantidadDinero) {
         super(x, y, width, height, null);
-        setSprites(new String[]{
-            "../Resource/Personajes/Calamardo/calamardo-movimiento1.png",
-            "../Resource/Personajes/Calamardo/calamardo-movimiento2.png",
-            "../Resource/Personajes/Calamardo/calamardo-movimiento3.png",});
+        this.panelJuego = panelJuego;
+        this.personaje = personaje;
+        this.barra = barra;
+        this.cantidadDinero = cantidadDinero;
+        Ordenes();
+        setSprites(new String[]{"../Resource/Personajes/Calamardo/calamardo.png"});
     }
 
-    public void CrearCliente(JLabel panel) {
-        img = new ImageIcon(getClass().getResource(getSprites()[1])).getImage();
+    private void Ordenes() {
+        orden.setLocation(1000, 690);
+    }
+
+    public void IniciarRecorrido() {
+        Timer tiempoCliente = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (segundos == 5) {
+                    CrearCliente();
+                }
+                if (segundos == 10) {
+                    MoverCliente(250, 300);
+                }
+                if (ordenLista) {
+                    orden.CrearOrden("../Resource/comida"+numeroComida+".png");
+                    panelJuego.add(orden);
+                }
+                if (personaje.getBounds().intersects(cliente.getBounds())) {
+                    orden.setLocation(320, 350);
+                    panelJuego.add(orden);
+                    Comer(orden);
+                    barra.QuitarComida(orden.getUrlImage());
+                }
+                if (personaje.getBounds().intersects(orden.getBounds()) && barra.OrdenAgarrada && ordenLista) {
+                    barra.AgregarComida(orden.getUrlImage());
+                    panelJuego.remove(orden);
+                    ordenLista = false;
+                }
+                if (terminarComida && !cantidadDinero.OrdenTerminada) {
+                    panelJuego.remove(orden);
+                    cantidadDinero.setDinero(20);
+                    cantidadDinero.OrdenTerminada = true;
+                    MoverClienteEliminar(100, 300);
+                }
+                segundos++;
+                panelJuego.revalidate();
+                panelJuego.repaint();
+            }
+        });
+        tiempoCliente.start();
+    }
+
+    public void CrearCliente() {
+        img = new ImageIcon(getClass().getResource(getSprites()[0])).getImage();
         cliente.setIcon(new ImageIcon(img.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH)));
         cliente.setBounds(getX(), getY(), getWidth(), getHeight());
-        panel.add(cliente);
+        panelJuego.add(cliente);
     }
 
     public void MoverCliente(int posicionX, int posicionY) {
@@ -55,8 +110,8 @@ public class Cliente extends personaje {
         timecharacter.start();
     }
 
-    public void MoverClienteEliminar(JLabel Fondoescenario, int posicionX, int posicionY) {
-        img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-movimiento2.png")).getImage();
+    public void MoverClienteEliminar(int posicionX, int posicionY) {
+        img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo.png")).getImage();
         cliente.setIcon(new ImageIcon(img.getScaledInstance(cliente.getWidth(), cliente.getHeight(), Image.SCALE_SMOOTH)));
         timecharacter = new Timer(100, new ActionListener() {
             int x = cliente.getX();
@@ -66,7 +121,7 @@ public class Cliente extends personaje {
             public void actionPerformed(ActionEvent e) {
                 if (x == posicionX && y == posicionY) {
                     timecharacter.stop();
-                    Fondoescenario.remove(cliente);
+                    panelJuego.remove(cliente);
                     return;
                 }
                 if (cliente.getBounds().x >= posicionX) {
@@ -96,7 +151,8 @@ public class Cliente extends personaje {
                 segundos++;
                 if (segundos == 5) {
                     ordenLista = true;
-                    img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-orden.png")).getImage();
+                    numeroComida = NumeroAleatorio();
+                    img = new ImageIcon(getClass().getResource("../Resource/Personajes/Calamardo/calamardo-orden"+numeroComida+".png")).getImage();
                     cliente.setIcon(new ImageIcon(img.getScaledInstance(cliente.getWidth(), cliente.getHeight(), Image.SCALE_SMOOTH)));
                     segundosComida.stop();
                 }
@@ -126,8 +182,12 @@ public class Cliente extends personaje {
         });
         comiendo.start();
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return cliente.getBounds();
+    }
+    
+    public int NumeroAleatorio(){
+        return (int) (Math.random() * (2-1+1) + 1);
     }
 }
