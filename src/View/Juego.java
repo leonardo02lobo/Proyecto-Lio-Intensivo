@@ -17,9 +17,11 @@ public class Juego extends JPanel {
 
         CrearEscenario();
         CrearPersonaje();
-        Ordenes();
         CrearMesas();
-
+        Fondoescenario.add(barra);
+        Ordenes();
+        Fondoescenario.add(cantidadDinero);
+        
         Timer tiempoCliente = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -29,12 +31,24 @@ public class Juego extends JPanel {
                 if (segundos == 10) {
                     clientePersonaje.MoverCliente(250, 300);
                 }
-                if(clientePersonaje.ordenLista){
+                if (clientePersonaje.ordenLista) {
+                    Fondoescenario.add(orden);
+                }
+                if (LBobEsponja.getBounds().intersects(clientePersonaje.getBounds())) {
+                    orden.setLocation(320, 350);
                     Fondoescenario.add(orden);
                     clientePersonaje.Comer(orden);
+                    barra.QuitarComida(orden.getUrlImage());
                 }
-                if (clientePersonaje.terminarComida) {
+                if (LBobEsponja.getBounds().intersects(orden.getBounds()) && barra.OrdenAgarrada && clientePersonaje.ordenLista) {
+                    barra.AgregarComida(orden.getUrlImage());
                     Fondoescenario.remove(orden);
+                    clientePersonaje.ordenLista = false;
+                }
+                if (clientePersonaje.terminarComida && !cantidadDinero.OrdenTerminada) {
+                    Fondoescenario.remove(orden);
+                    cantidadDinero.setDinero(20);
+                    cantidadDinero.OrdenTerminada = true;
                     clientePersonaje.MoverClienteEliminar(Fondoescenario, 100, 300);
                 }
                 System.out.println(segundos);
@@ -134,8 +148,9 @@ public class Juego extends JPanel {
     private void CrearCliente() {
         clientePersonaje.CrearCliente(Fondoescenario);
     }
-    private void Ordenes(){
-        orden.setLocation(320, 330);
+
+    private void Ordenes() {
+        orden.setLocation(1000, 690);
     }
 
     private EntornoMesa[] EntornoMesa = new EntornoMesa[4];
@@ -146,5 +161,7 @@ public class Juego extends JPanel {
     private int segundos = 0;
     private Cliente clientePersonaje = new Cliente(100, 300, 100, 100);
     private JLabel Fondoescenario = new JLabel();
-    private Orden orden = new Orden();
+    private Orden orden = new Orden("../Resource/cangreburger.png");
+    private BarraComida barra = new BarraComida();
+    private CantidadDinero cantidadDinero = new CantidadDinero();
 }
