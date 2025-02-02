@@ -1,7 +1,6 @@
 package View;
 
 import Models.*;
-import Models.Entidades.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,47 +16,10 @@ public class Juego extends JPanel {
 
         CrearEscenario();
         CrearPersonaje();
-        CrearMesas();
         Fondoescenario.add(barra);
-        Ordenes();
         Fondoescenario.add(cantidadDinero);
-        
-        Timer tiempoCliente = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (segundos == 5) {
-                    CrearCliente();
-                }
-                if (segundos == 10) {
-                    clientePersonaje.MoverCliente(250, 300);
-                }
-                if (clientePersonaje.ordenLista) {
-                    Fondoescenario.add(orden);
-                }
-                if (LBobEsponja.getBounds().intersects(clientePersonaje.getBounds())) {
-                    orden.setLocation(320, 350);
-                    Fondoescenario.add(orden);
-                    clientePersonaje.Comer(orden);
-                    barra.QuitarComida(orden.getUrlImage());
-                }
-                if (LBobEsponja.getBounds().intersects(orden.getBounds()) && barra.OrdenAgarrada && clientePersonaje.ordenLista) {
-                    barra.AgregarComida(orden.getUrlImage());
-                    Fondoescenario.remove(orden);
-                    clientePersonaje.ordenLista = false;
-                }
-                if (clientePersonaje.terminarComida && !cantidadDinero.OrdenTerminada) {
-                    Fondoescenario.remove(orden);
-                    cantidadDinero.setDinero(20);
-                    cantidadDinero.OrdenTerminada = true;
-                    clientePersonaje.MoverClienteEliminar(Fondoescenario, 100, 300);
-                }
-                System.out.println(segundos);
-                segundos++;
-                revalidate();
-                repaint();
-            }
-        });
-        tiempoCliente.start();
+        clientePersonaje = new Cliente(100, 300, 100, 100, Fondoescenario, LBobEsponja, barra, cantidadDinero);
+        clientePersonaje.IniciarRecorrido();
     }
 
     private void CrearPersonaje() {
@@ -73,38 +35,22 @@ public class Juego extends JPanel {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                     if (x != 1080) {
-                        if (VerificarColisionMesas()) {
-                            x += 10;
-                        } else {
-                            x -= 20;
-                        }
+                        x += 10;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_A) {
                     if (x != 0) {
-                        if (VerificarColisionMesas()) {
-                            x -= 10;
-                        } else {
-                            x += 20;
-                        }
+                        x -= 10;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W) {
                     if (y != 300) {
-                        if (VerificarColisionMesas()) {
-                            y -= 10;
-                        } else {
-                            y += 20;
-                        }
+                        y -= 10;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     if (y != 660) {
-                        if (VerificarColisionMesas()) {
-                            y += 10;
-                        } else {
-                            y -= 20;
-                        }
+                        y += 10;
                     }
 
                 }
@@ -122,14 +68,6 @@ public class Juego extends JPanel {
         Fondoescenario.add(LBobEsponja);
     }
 
-    private void CrearMesas() {
-//        for (int i = 0; i < EntornoMesa.length; i++) {
-//            EntornoMesa[i] = new EntornoMesa();
-//            EntornoMesa[i].setBounds(EntornoMesa[i].getCoordenadasX()[i], EntornoMesa[i].getCoordenadasY()[i], 100,100);
-//            Fondoescenario.add(EntornoMesa[i]);
-//        }
-    }
-
     private void CrearEscenario() {
         Image img = new ImageIcon(getClass().getResource("../Resource/fondoJuego.png")).getImage();
         escenario.setIcon(new ImageIcon(img.getScaledInstance(App.WITDH, App.HEIGHT, Image.SCALE_SMOOTH)));
@@ -137,31 +75,13 @@ public class Juego extends JPanel {
         add(escenario);
     }
 
-    private boolean VerificarColisionMesas() {
-        return true;
-//        return (!LBobEsponja.getBounds().intersects(EntornoMesa[0].getBounds())
-//                && !LBobEsponja.getBounds().intersects(EntornoMesa[1].getBounds())
-//                && !LBobEsponja.getBounds().intersects(EntornoMesa[2].getBounds())
-//                && !LBobEsponja.getBounds().intersects(EntornoMesa[3].getBounds()));
-    }
-
-    private void CrearCliente() {
-        clientePersonaje.CrearCliente(Fondoescenario);
-    }
-
-    private void Ordenes() {
-        orden.setLocation(1000, 690);
-    }
-
-    private EntornoMesa[] EntornoMesa = new EntornoMesa[4];
     private JLabel LBobEsponja = new JLabel();
     private JLabel escenario = new JLabel();
     private personaje datosPersonaje = new bobEsponja(400, 450, 100, 100);
     private bobEsponja bob;
     private int segundos = 0;
-    private Cliente clientePersonaje = new Cliente(100, 300, 100, 100);
+    private Cliente clientePersonaje;
     private JLabel Fondoescenario = new JLabel();
-    private Orden orden = new Orden("../Resource/cangreburger.png");
     private BarraComida barra = new BarraComida();
     private CantidadDinero cantidadDinero = new CantidadDinero();
 }
