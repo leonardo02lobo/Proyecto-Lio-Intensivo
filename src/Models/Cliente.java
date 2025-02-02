@@ -19,8 +19,8 @@ public class Cliente extends personaje {
     private CantidadDinero cantidadDinero;
     private int numeroComida = 0;
     private boolean[] mesasOcupadas = {false,false,false,false,false,false};
-    private int[] posicionMesasX ={250,500,700,950};
-    private int[] posicionMesasY ={300,300,300,300};
+    private int[] posicionMesasX ={250,500,700,950,400,720};
+    private int[] posicionMesasY ={300,300,300,300,450,450};
 
     public Cliente(int x, int y, int width, int height, JLabel panelJuego, JLabel personaje, BarraComida barra, CantidadDinero cantidadDinero) {
         super(x, y, width, height, null);
@@ -38,20 +38,25 @@ public class Cliente extends personaje {
 
     public void IniciarRecorrido() {
         Timer tiempoCliente = new Timer(1000, new ActionListener() {
+            int numerorandom = PosicionRandom();
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (segundos == 5) {
                     CrearCliente();
                 }
                 if (segundos == 10) {
-                    MoverCliente(250, 300);
+                    MoverCliente(posicionMesasX[numerorandom], posicionMesasY[numerorandom]);
                 }
                 if (ordenLista) {
                     orden.CrearOrden("../Resource/comida"+numeroComida+".png");
                     panelJuego.add(orden);
                 }
                 if (personaje.getBounds().intersects(cliente.getBounds())) {
-                    orden.setLocation(320, 350);
+                    if(numerorandom % 2 == 0){
+                        orden.setLocation(posicionMesasX[numerorandom]+70, posicionMesasY[numerorandom]+20);
+                    }else{
+                        orden.setLocation(posicionMesasX[numerorandom]-40, posicionMesasY[numerorandom]+20);
+                    } 
                     panelJuego.add(orden);
                     Comer(orden);
                     barra.QuitarComida(orden.getUrlImage());
@@ -189,5 +194,8 @@ public class Cliente extends personaje {
     
     public int NumeroAleatorio(){
         return (int) (Math.random() * (2-1+1) + 1);
+    }
+    public int PosicionRandom(){
+        return (int)(Math.random() * (posicionMesasX.length-1+1)+1)-1;
     }
 }
