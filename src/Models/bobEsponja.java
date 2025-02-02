@@ -20,6 +20,16 @@ public class bobEsponja extends personaje {
             timecharacter.stop();
             timecharacter = null;
         }
+        if(letraCodigo == KeyEvent.VK_D){
+            setSprites(new String[]{"../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento4.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento5.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento6.png"});
+        }
+        if(letraCodigo == KeyEvent.VK_A){
+            setSprites(new String[]{"../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento1.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento2.png",
+                "../Resource/Personajes/Bob-Esponja/bob-esponja-movimiento3.png"});
+        }
         timecharacter = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
