@@ -18,7 +18,7 @@ public class App {
         v.add(panel);
         v.setResizable(false);
         v.setLocationRelativeTo(null);
-        v.setTitle("Penguin Diner");
+        v.setTitle("Krusty Krab");
         v.setVisible(true);
     }
 
