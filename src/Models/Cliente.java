@@ -22,6 +22,7 @@ public class Cliente extends personaje {
     private int[] posicionMesasX = {250, 500, 700, 950, 400, 720};
     private int[] posicionMesasY = {300, 300, 300, 300, 450, 450};
     private String personajeElegido = "";
+    public static int NumeroClientes = 0;
 
     public Cliente(int x, int y, int width, int height, JLabel panelJuego, JLabel personaje, BarraComida barra, CantidadDinero cantidadDinero) {
         super(x, y, width, height, null);
@@ -47,6 +48,7 @@ public class Cliente extends personaje {
             default:
                 break;
         }
+        barra.OrdenAgarrada = true;
     }
 
     private void Ordenes() {

@@ -23,9 +23,15 @@ public class Juego extends JPanel {
         Timer tiempoCliente = new Timer(6000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(Cliente.NumeroClientes == 10){
+                    JOptionPane.showMessageDialog(null, "Primer Nivel Terminado");
+                    App.CerraFrame();
+                    App.CrearFrame(new Juego());
+                }
                 if(MesasLibres()){         
                     clientePersonaje = new Cliente(100, 300, 100, 100, Fondoescenario, LBobEsponja, barra, cantidadDinero);
                     clientePersonaje.IniciarRecorrido();
+                    Cliente.NumeroClientes++;
                 }
             }
         });
