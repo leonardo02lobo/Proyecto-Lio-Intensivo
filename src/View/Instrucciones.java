@@ -18,8 +18,7 @@ public class Instrucciones extends JPanel {
         "../Resource/instruccion-2.png",
         "../Resource/instruccion-3.png",
         "../Resource/instruccion-4.png",
-        "../Resource/instruccion-5.png",
-        "../Resource/instruccion-6.png",};
+        "../Resource/instruccion-5.png"};
     private int i = 0;
     private Image img = null;
 

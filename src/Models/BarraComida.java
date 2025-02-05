@@ -7,48 +7,30 @@ public class BarraComida extends JLabel {
 
     public BarraComida() {
         setLayout(null);
-        setBounds(0, 690, 320, 100);
+        setBounds(0, 690, 70, 100);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         DibujarEspaciosComida();
     }
 
     private void DibujarEspaciosComida() {
-        int x = 10;
-        for (JLabel label : espacios) {
-            label = new JLabel();
-            label.setBounds(x, 10, 50, 50);
-            label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            add(label);
-            x += 60;
-        }
+        espacios.setBounds(10, 10, 50, 50);
+        add(espacios);
     }
 
     public void AgregarComida(String img) {
-        if (espacios[posicionComida] == null) {
-            espacios[posicionComida] = new JLabel();
-            urlComidas[posicionComida] = img;
-            Image imagen = new ImageIcon(getClass().getResource(img)).getImage();
-            espacios[posicionComida].setIcon(new ImageIcon(imagen.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
-            espacios[posicionComida].setBounds(x, 10, 50, 50);
-            add(espacios[posicionComida]);
-            posicionComida++;
-            x += 60;
-            OrdenAgarrada = false;
-        }
+        espacios = new JLabel();
+        Image imagen = new ImageIcon(getClass().getResource(img)).getImage();
+        espacios.setIcon(new ImageIcon(imagen.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        espacios.setBounds(10, 10, 50, 50);
+        add(espacios);
+        OrdenAgarrada = false;
     }
 
     public void QuitarComida(String img) {
-        for (int i = 0; i < urlComidas.length; i++) {
-            if(urlComidas[i].equals(img)){
-                remove(espacios[i]);
-                return;
-            }
-        }
+        remove(espacios);
+        OrdenAgarrada = true;
     }
 
-    private JLabel[] espacios = new JLabel[5];
-    private int posicionComida = 0;
+    private static JLabel espacios = new JLabel();
     public boolean OrdenAgarrada = true;
-    private int x = 10;
-    private String[] urlComidas = new String[5];
 }
